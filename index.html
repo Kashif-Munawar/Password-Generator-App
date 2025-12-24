@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="appContainer">
+  <h1 id="idh1">Generate a <br><span id="randpwText">random password</span> </h1>
+  <p id="ptext">Never use an insecure password again</p>
+  <label for="username" id="pwlengthtext">Password Length:</label>
+<input type="text" id="pwlength" name="pwlength" placeholder="">
+<div class="settings">
+    <label>
+        <input type="checkbox" id="numbers-tick" checked> Include Numbers
+    </label>
+    <label>
+        <input type="checkbox" id="symbols-tick" checked> Include Symbols
+    </label>
+</div>
+  <button id="genPassel" onclick="generatePasswords()">Generate Password</button>
+  <hr>
+  <div id="btncontainer">
+  <div id="rpw1"></div>
+    <div id="rpw2"></div>
+    <button onclick="copy(rpw1,rpw2)" id="copybtn">Copy to Clipboard</button>
+    </div> 
+    </div>
+    
+</body>
+<script>
+  let ranpw1 = document.getElementById("rpw1");
+  let ranpw2 = document.getElementById("rpw2");
+  let numbersTick = document.getElementById("numbers-tick");
+  let symbolsTick = document.getElementById("symbols-tick");
+  
+  let random1 =  [];
+  let random2 =  [];
+  const letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const symbols = ["~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]",",","|",":",";","<",">",".","?", "/"];
+ 
+ ranpw1.textContent = "";
+   ranpw2.textContent = "";
+ function generatePasswords(){
+  ranpw1.textContent = "";
+   ranpw2.textContent = "";
+  let charpool=[...letters]//assigning letters array to charpool
+  if(numbersTick.checked){//checking if numbers tick is checked
+    charpool=[...charpool,...numbers]//adding numbers array to charpool
+  }
+  if(symbolsTick.checked){
+    charpool=[...charpool,...symbols]//adding symbols array to charpool
+  }
+  let pwlengthel = document.getElementById("pwlength").value;//getting password length from input field
+  if(pwlengthel >15){
+    alert("Password length should not exceed 15 characters.");
+    return; 
+  }
+ 
+   
+ 
+ for(let i=0; i<pwlengthel; i++){
+  
+  let randomIndex1 = Math.floor(Math.random() * charpool.length);  //generating random index based on charpool length
+  ranpw1.textContent += charpool[randomIndex1];//adding character at random index to password string
+  
+   let randomIndex2 = Math.floor(Math.random() * charpool.length);  
+  ranpw2.textContent += charpool[randomIndex2];
+ }}
+ function copy(ranpw1, ranpw2){
+  let pwtext=[]
+  pwtext.push(ranpw1.textContent) ;
+  pwtext.push(ranpw2.textContent) ;
+
+  navigator.clipboard.writeText(pwtext)//copying to clipboard
+  .then(() => {
+  alert("Password copied to clipboard: " + pwtext);})
+  .catch(err => {//handling error
+            console.error("Failed to copy: ", err);
+        });}
+  console.log(random1);
+  console.log(random2);
+</script>
+</html
+
+
+
